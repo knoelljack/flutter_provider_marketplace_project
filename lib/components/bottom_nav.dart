@@ -51,11 +51,11 @@ class _BottomNavState extends State<BottomNav> {
             backgroundColor: Colors.grey),
         BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Messages',
+            label: 'Search',
             backgroundColor: Colors.grey),
         BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_sharp),
-            label: 'Messages',
+            label: 'Profile',
             backgroundColor: Colors.grey),
       ],
       currentIndex: _selectedIndex,

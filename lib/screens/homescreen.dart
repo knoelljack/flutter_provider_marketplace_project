@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:search_bar/components/bottom_nav.dart';
+import 'package:search_bar/components/providers_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,8 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         title: const Text('Provider MarketPlace'),
       ),
-      body: ListView(),
-      bottomNavigationBar: BottomNav(),
+      body: Column(children: const <Widget>[
+        //INSERT LIST VIEW OF PROFILE CARDS HERE
+        ProvidersList(),
+      ]),
+      bottomNavigationBar: const BottomNav(),
     );
   }
 }
