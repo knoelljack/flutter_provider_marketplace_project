@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/homescreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,33 +10,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Icon helpIcon = const Icon(Icons.help_center_outlined);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: helpIcon,
-          )
-        ],
-        title: const Text('Provider MarketPlace'),
-      ),
-      body: ListView(),
     );
   }
 }
