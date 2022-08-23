@@ -37,5 +37,30 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+          backgroundColor: Colors.grey,
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.message_rounded),
+            label: 'Messages',
+            backgroundColor: Colors.grey),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Messages',
+            backgroundColor: Colors.grey),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_sharp),
+            label: 'Messages',
+            backgroundColor: Colors.grey),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.black,
+      onTap: _onItemTapped,
+    );
+  }
 }

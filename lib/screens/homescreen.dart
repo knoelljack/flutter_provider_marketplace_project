@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:search_bar/components/bottom_nav.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,26 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Provider MarketPlace'),
       ),
       body: ListView(),
-      bottomNavigationBar:
-          BottomNavigationBar(items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-          backgroundColor: Colors.grey,
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.message_rounded),
-            label: 'Messages',
-            backgroundColor: Colors.grey),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Messages',
-            backgroundColor: Colors.grey),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_sharp),
-            label: 'Messages',
-            backgroundColor: Colors.grey),
-      ]),
+      bottomNavigationBar: BottomNav(),
     );
   }
 }
