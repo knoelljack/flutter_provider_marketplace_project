@@ -24,10 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         title: const Text('Provider MarketPlace'),
       ),
-      body: Column(children: const <Widget>[
-        //INSERT LIST VIEW OF PROFILE CARDS HERE
-        ProvidersList(),
-      ]),
+      body:
+          //INSERT LIST VIEW OF PROFILE CARDS HERE
+          ProvidersList(),
       bottomNavigationBar: const BottomNav(),
     );
   }

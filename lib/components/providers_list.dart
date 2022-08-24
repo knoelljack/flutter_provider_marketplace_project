@@ -11,42 +11,66 @@ class ProvidersList extends StatefulWidget {
 }
 
 class _ProvidersListState extends State<ProvidersList> {
-  List<Provider> providersList = [];
-  List _items = [];
+  List _providers = [];
 
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('/data/providers.json');
-    final data = await json.decode(response);
-    print(response);
+  //FETCH JSON FILE
+  Future<void> readJsonFile() async {
+    final String res =
+        await rootBundle.loadString('assets/data/providers.json');
+    final data = await json.decode(res);
+
     setState(() {
-      _items = data['providers'];
+      _providers = data['providers'];
     });
-    // var jsonData = json.decode(provider_data.data.toString());
-
-    // final List<dynamic> providersFromData =
-    //     jsonDecode(provider_data)['providers'] as List;
-    // print(providersFromData);
-
-    // providersFromData.map((p) => providersList.add(Provider.fromJson(p)));
-    // setState(() {});
   }
+
+  // List<Provider> providersList = [];
+  // List _items = [];
+  // bool isLoaded = false;
+
+  // Future<void> readJson() async {
+  //   final String response = await rootBundle.loadString('/data/providers.json');
+  //   final data = await json.decode(response);
+
+  //   setState(() {
+  //     _items = data['providers'];
+  //     isLoaded = true;
+  //   });
+  //   // var jsonData = json.decode(provider_data.data.toString());
+
+  //   // final List<dynamic> providersFromData =
+  //   //     jsonDecode(provider_data)['providers'] as List;
+  //   // print(providersFromData);
+
+  //   // providersFromData.map((p) => providersList.add(Provider.fromJson(p)));
+  //   // setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return _items.isNotEmpty
-        ? Expanded(
-            child: ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      leading: Text(_items[index]['id']),
-                      title: Text(_items[index]['name']),
-                      subtitle: Text(_items[index]['description']),
-                    ),
-                  );
-                }))
-        : Container();
+    return Container(
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+              onPressed: readJsonFile, child: const Text('Load Providers')),
+        ),
+        _providers.isNotEmpty
+            ? Expanded(
+                child: ListView.builder(
+                    itemCount: _providers.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return Card(
+                        margin: const EdgeInsets.all(10.0),
+                        child: ListTile(
+                          title: Text(_providers[index]['name']),
+                          subtitle: Text(_providers[index]['description']),
+                        ),
+                      );
+                    }),
+              )
+            : const Text('Click to load providers')
+      ]),
+    );
   }
 }
