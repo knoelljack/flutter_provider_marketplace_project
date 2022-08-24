@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:search_bar/data/providers.json' as provider_data;
+import 'package:flutter/services.dart';
 import 'package:search_bar/models/provider.dart';
 import 'dart:convert';
 
@@ -11,27 +11,42 @@ class ProvidersList extends StatefulWidget {
 }
 
 class _ProvidersListState extends State<ProvidersList> {
-  getJsonData() {
-    var providers_from_data = jsonDecode(provider_data)['providers'] as List;
-    List<Provider> providerObjs = providers_from_data.map((pfd) => {
-      Provider.fromJson(pfd)).toList();
-    })
+  List<Provider> providersList = [];
+  List _items = [];
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('/data/providers.json');
+    final data = await json.decode(response);
+    print(response);
+    setState(() {
+      _items = data['providers'];
+    });
+    // var jsonData = json.decode(provider_data.data.toString());
+
+    // final List<dynamic> providersFromData =
+    //     jsonDecode(provider_data)['providers'] as List;
+    // print(providersFromData);
+
+    // providersFromData.map((p) => providersList.add(Provider.fromJson(p)));
+    // setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const <Widget>[
-        Card(
-          child: ListTile(
-            leading: FlutterLogo(size: 72.0),
-            title: Text('Sample List Tile'),
-            subtitle: Text('Sample description goes here'),
-            trailing: Icon(Icons.calendar_month_outlined),
-            isThreeLine: true,
-          ),
-        )
-      ],
-    );
+    return _items.isNotEmpty
+        ? Expanded(
+            child: ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      leading: Text(_items[index]['id']),
+                      title: Text(_items[index]['name']),
+                      subtitle: Text(_items[index]['description']),
+                    ),
+                  );
+                }))
+        : Container();
   }
 }
