@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body:
           //INSERT LIST VIEW OF PROFILE CARDS HERE
-          ProvidersList(),
+          const ProvidersList(),
       bottomNavigationBar: const BottomNav(),
     );
   }

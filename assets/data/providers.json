@@ -29,6 +29,16 @@
             "id" : 5,
             "name" : "Provider 6",
             "description" : "Test description 6"
+        },
+        {
+            "id" : 6,
+            "name" : "Provider 7",
+            "description" : "Test description 7"
+        },
+        {
+            "id" : 7,
+            "name" : "Provider 8",
+            "description" : "Test description 8"
         }
     ]
 }

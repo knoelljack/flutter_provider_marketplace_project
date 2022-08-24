@@ -62,13 +62,41 @@ class _ProvidersListState extends State<ProvidersList> {
                     itemBuilder: (BuildContext context, index) {
                       return Card(
                         margin: const EdgeInsets.all(10.0),
-                        child: ListTile(
-                          title: Text(_providers[index]['name']),
-                          subtitle: Text(_providers[index]['description']),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Expanded(
+                                  flex: 1,
+                                  child: Image(
+                                    image: AssetImage(
+                                        'assets/images/default_profile_pic.png'),
+                                    height: 60,
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title:
+                                              Text(_providers[index]['name']),
+                                          subtitle: Text(
+                                              _providers[index]['description']),
+                                        ),
+                                        Row(children: const [
+                                          Icon(Icons.phone_enabled),
+                                          Icon(Icons.calendar_month_outlined),
+                                          Icon(Icons.email_outlined)
+                                        ]),
+                                      ],
+                                    ))
+                              ],
+                            )
+                          ],
                         ),
                       );
-                    }),
-              )
+                    }))
             : const Text('Click to load providers')
       ]),
     );
