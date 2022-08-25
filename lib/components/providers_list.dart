@@ -4,15 +4,16 @@ import 'package:search_bar/models/provider.dart';
 import 'dart:convert';
 
 class ProvidersList extends StatefulWidget {
-  const ProvidersList({Key? key}) : super(key: key);
+  // ignore: prefer_const_constructors_in_immutables
+  ProvidersList({Key? key, required this.providers}) : super(key: key);
+
+  List providers;
 
   @override
   State<ProvidersList> createState() => _ProvidersListState();
 }
 
 class _ProvidersListState extends State<ProvidersList> {
-  List _providers = [];
-
   //FETCH JSON FILE
   Future<void> readJsonFile() async {
     final String res =
@@ -20,31 +21,9 @@ class _ProvidersListState extends State<ProvidersList> {
     final data = await json.decode(res);
 
     setState(() {
-      _providers = data['providers'];
+      widget.providers = data['providers'];
     });
   }
-
-  // List<Provider> providersList = [];
-  // List _items = [];
-  // bool isLoaded = false;
-
-  // Future<void> readJson() async {
-  //   final String response = await rootBundle.loadString('/data/providers.json');
-  //   final data = await json.decode(response);
-
-  //   setState(() {
-  //     _items = data['providers'];
-  //     isLoaded = true;
-  //   });
-  //   // var jsonData = json.decode(provider_data.data.toString());
-
-  //   // final List<dynamic> providersFromData =
-  //   //     jsonDecode(provider_data)['providers'] as List;
-  //   // print(providersFromData);
-
-  //   // providersFromData.map((p) => providersList.add(Provider.fromJson(p)));
-  //   // setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +34,10 @@ class _ProvidersListState extends State<ProvidersList> {
           child: ElevatedButton(
               onPressed: readJsonFile, child: const Text('Load Providers')),
         ),
-        _providers.isNotEmpty
+        widget.providers.isNotEmpty
             ? Expanded(
                 child: ListView.builder(
-                    itemCount: _providers.length,
+                    itemCount: widget.providers.length,
                     itemBuilder: (BuildContext context, index) {
                       return Card(
                         margin: const EdgeInsets.all(10.0),
@@ -79,16 +58,23 @@ class _ProvidersListState extends State<ProvidersList> {
                                     child: Column(
                                       children: [
                                         ListTile(
-                                          title:
-                                              Text(_providers[index]['name']),
-                                          subtitle: Text(
-                                              _providers[index]['description']),
+                                          title: Text(
+                                              widget.providers[index]['name']),
+                                          subtitle: Text(widget.providers[index]
+                                              ['description']),
                                         ),
-                                        Row(children: const [
-                                          Icon(Icons.phone_enabled),
-                                          Icon(Icons.calendar_month_outlined),
-                                          Icon(Icons.email_outlined)
-                                        ]),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: const [
+                                                Icon(Icons.phone_enabled),
+                                                Icon(Icons
+                                                    .calendar_month_outlined),
+                                                Icon(Icons.email_outlined)
+                                              ]),
+                                        ),
                                       ],
                                     ))
                               ],
@@ -97,7 +83,7 @@ class _ProvidersListState extends State<ProvidersList> {
                         ),
                       );
                     }))
-            : const Text('Click to load providers')
+            : const Center(child: Text('Click to load providers'))
       ]),
     );
   }

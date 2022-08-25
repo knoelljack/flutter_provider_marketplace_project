@@ -39,6 +39,11 @@
             "id" : 7,
             "name" : "Provider 8",
             "description" : "Test description 8"
+        },
+        {
+            "id" : 8,
+            "name" : "Provider 9",
+            "description" : "Test description 9"
         }
     ]
 }
