@@ -1,55 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchBar extends StatelessWidget {
+  SearchBar({Key? key, required this.providers, required this.foundUsers})
+      : super(key: key);
 
-  @override
-  State<SearchBar> createState() => _SearchBarState();
-}
+  late List foundUsers;
+  late List providers;
 
-class _SearchBarState extends State<SearchBar> {
-  Icon searchIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('Search');
+  void runFilter(String enteredKeyword) {
+    if (enteredKeyword.isEmpty) {
+      foundUsers = providers;
+    } else {
+      print(providers);
+      print(enteredKeyword);
+      foundUsers = providers
+          .where((provider) => provider["name"]
+              .toString()
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-        title: customSearchBar,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  if (searchIcon.icon == Icons.search) {
-                    searchIcon = const Icon(Icons.cancel);
-                    customSearchBar = const ListTile(
-                      leading: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 28,
-                      ),
-                      title: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search for doctor...',
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    );
-                  } else {
-                    searchIcon = const Icon(Icons.search);
-                    customSearchBar = const Text('Search');
-                  }
-                });
-              },
-              icon: searchIcon)
-        ]);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        onChanged: (value) => runFilter(value),
+        decoration: const InputDecoration(
+          labelText: 'Search',
+          suffixIcon: Icon(Icons.search),
+        ),
+      ),
+    );
   }
 }

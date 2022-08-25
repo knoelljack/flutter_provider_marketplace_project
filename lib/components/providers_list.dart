@@ -5,9 +5,11 @@ import 'dart:convert';
 
 class ProvidersList extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  ProvidersList({Key? key, required this.providers}) : super(key: key);
+  ProvidersList({Key? key, required this.providers, required this.foundUsers})
+      : super(key: key);
 
   List providers;
+  List foundUsers;
 
   @override
   State<ProvidersList> createState() => _ProvidersListState();
@@ -26,8 +28,14 @@ class _ProvidersListState extends State<ProvidersList> {
   }
 
   @override
+  void initState() {
+    widget.foundUsers = widget.providers;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return Expanded(
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),

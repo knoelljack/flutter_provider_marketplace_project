@@ -11,13 +11,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //STATIC VARIABLES
   Icon helpIcon = const Icon(Icons.help_center_outlined);
+
+  //STATEFUL VARIABLES
   List providers = [];
-  List _foundUsers = [];
+  List foundUsers = [];
 
   @override
   void initState() {
-    _foundUsers = providers;
+    foundUsers = providers;
     super.initState();
   }
 
@@ -34,8 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Provider MarketPlace'),
       ),
       body: //INSERT SEARCH BAR AND LISTS HERE
-          // const SearchBar(),
-          ProvidersList(providers: providers),
+          Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SearchBar(providers: providers, foundUsers: foundUsers),
+          ProvidersList(providers: providers, foundUsers: foundUsers),
+        ],
+      ),
       bottomNavigationBar: const BottomNav(),
     );
   }
